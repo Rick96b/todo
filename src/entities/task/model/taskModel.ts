@@ -26,6 +26,11 @@ export const taskModel = createSlice({
         toggleTask: ({ data }, { payload: taskId }: PayloadAction<number>) => {
             data[taskId].completed = !data[taskId].completed;
         },
+        setTasksList: (state, { payload }: PayloadAction<Task[]>) => {
+            let taskList: OrderedTasks = {};
+            payload.forEach(task => taskList[task.id] = task)
+            state.data = taskList;
+        },
     },
 });
 
@@ -38,6 +43,6 @@ export const useTask = (taskId: number) =>
   );
 
 
-export const { toggleTask } = taskModel.actions;
+export const { toggleTask, setTasksList } = taskModel.actions;
 
 export const reducer = taskModel.reducer;

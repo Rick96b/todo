@@ -1,16 +1,26 @@
-import { Checkbox } from '@mui/material';
 import React from 'react'
+import { Checkbox } from '@mui/material';
+import { useDispatch } from 'react-redux';
+
+import { taskModel } from 'entities/task';
 
 interface ToggleTaskProps {
     taskId: number;
 }
 
-const ToggleTask = () => {
-  return (
-    <Checkbox
+const ToggleTask: React.FC<ToggleTaskProps> = ({taskId}) => {
+    const dispatch = useDispatch();
+    const task = taskModel.useTask(taskId);
+    if (!task) return null;
 
-    />
-  )
+    const onToggle = () => dispatch(taskModel.toggleTask(taskId));
+
+    return (
+        <Checkbox
+            onChange={onToggle}
+            checked={task.completed}
+        />
+    )
 }
 
 export default ToggleTask;
