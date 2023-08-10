@@ -1,7 +1,6 @@
 import React from 'react'
 
 import styles from './Task.module.scss';
-import { Checkbox, FormControlLabel } from '@mui/material';
 
 interface TodoItemProps {
   data: import("../model/taskModel").Task;

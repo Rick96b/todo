@@ -1,0 +1,38 @@
+.info {
+    display: flex;
+
+    margin-top: 50px;
+
+    font-family: var(--main-font);
+}
+
+.progress {
+    color: var(--color-red);
+}
+
+.infoContainer {
+    margin-left: 16px;
+
+    &::after {
+        content: "";
+
+        display: block;
+        width: 100%;
+        height: 2px;
+
+        margin-top: 20px;
+
+        background: linear-gradient(#EEE, #FFF);
+    }
+}
+
+.listName {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+}
+
+.tasksCount {
+    font-family: 0.5rem;
+    color: rgba(0, 0, 0, 0.4)
+}
