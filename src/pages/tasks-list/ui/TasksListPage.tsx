@@ -1,10 +1,12 @@
 import React from 'react'
-import { CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Container, IconButton, circularProgressClasses } from '@mui/material';
+import Brightness5OutlinedIcon from '@mui/icons-material/Brightness5Outlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
-import styles from './TasksListPage.module.scss';
 import { TasksList } from 'widgets/tasks-list';
 import { taskModel } from 'entities/task';
 import { AddTask } from 'features/add-task';
+import styles from './TasksListPage.module.scss';
 
 interface TasksListPageProps {
   listName: string,
@@ -15,21 +17,48 @@ const TasksListPage: React.FC<TasksListPageProps> = ({listName, data}) => {
   const completedTasks = data.filter(task => task.completed)
 
   return (
-    <div className={styles.tasksPage}>
+    <Container maxWidth="md" className={styles.tasksPage}>
+      <header className={styles.header}>
+        <Brightness5OutlinedIcon />
+        <IconButton>
+          <CloseOutlinedIcon />
+        </IconButton>
+      </header>
       <div className={styles.info}>
-        <CircularProgress 
-          variant="determinate" 
-          value={completedTasks.length / data.length * 100}
-          className={styles.progress}
+      <Box sx={{ position: 'relative', paddingTop: '10px' }}>
+        <CircularProgress
+          variant="determinate"
+          sx={{
+            color: (theme) =>
+              theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+          }}
+          size={30}
+          thickness={4}
+          value={100}
         />
+        <CircularProgress
+          variant="determinate"
+          disableShrink
+          sx={{
+            position: 'absolute',
+            left: 0,
+          }}
+          size={30}
+          thickness={4}
+          className={styles.progress}
+          value={completedTasks.length / data.length * 100}
+        />
+      </Box>
         <p className={styles.infoContainer}>
           <h2 className={styles.listName}>{listName}</h2>
           <span className={styles.tasksCount}>{`${completedTasks.length} of ${data.length} tasks`}</span>
         </p>
       </div>
       <TasksList data={data} />
-      <AddTask />
-    </div>
+      <div className={styles.addTaskButton}>
+        <AddTask />
+      </div>
+    </Container>
   )
 }
 

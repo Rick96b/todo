@@ -1,1 +1,1 @@
-export {default as AddTask} from './ui/AddTask';
+export {default as AddTask} from './ui/addTaskButton/AddTask';

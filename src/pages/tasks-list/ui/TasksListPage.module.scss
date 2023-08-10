@@ -1,3 +1,16 @@
+.tasksPage {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 0px;
+}
+
 .info {
     display: flex;
 
@@ -11,6 +24,8 @@
 }
 
 .infoContainer {
+    flex-grow: 1;
+
     margin-left: 16px;
 
     &::after {
@@ -35,4 +50,9 @@
 .tasksCount {
     font-family: 0.5rem;
     color: rgba(0, 0, 0, 0.4)
+}
+
+.addTaskButton {
+    margin-left: auto;
+    margin-top: 40px;
 }
