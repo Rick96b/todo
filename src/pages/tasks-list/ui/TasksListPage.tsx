@@ -38,7 +38,6 @@ const TasksListPage: React.FC<TasksListPageProps> = ({listName, data}) => {
         />
         <CircularProgress
           variant="determinate"
-          disableShrink
           sx={{
             position: 'absolute',
             left: 0,
@@ -50,13 +49,13 @@ const TasksListPage: React.FC<TasksListPageProps> = ({listName, data}) => {
         />
       </Box>
         <p className={styles.infoContainer}>
-          <h2 className={styles.listName}>{listName}</h2>
+          <b className={styles.listName}>{listName}</b>
           <span className={styles.tasksCount}>{`${completedTasks.length} of ${data.length} tasks`}</span>
         </p>
       </div>
       <TasksList data={data} />
       <div className={styles.addTaskButton}>
-        <AddTask />
+        <AddTask tasksListName={listName}/>
       </div>
     </Container>
   )

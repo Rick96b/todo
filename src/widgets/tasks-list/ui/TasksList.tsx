@@ -11,7 +11,6 @@ interface TaskListProps {
 }
 
 const TaskList: React.FC<TaskListProps> = ({data}) => {
-  console.log(data)
   return (
     <ul className={styles.taskList}>
         {

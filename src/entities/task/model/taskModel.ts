@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 export type Task = {
     id: number;
-    taskList: string,
+    tasksList: string,
     title: string;
     completed: boolean;
 }
@@ -27,6 +27,9 @@ export const taskModel = createSlice({
         toggleTask: ({ data }, { payload: taskId }: PayloadAction<number>) => {
             data[taskId].completed = !data[taskId].completed;
         },
+        addTask: ({data}, {payload: task}: PayloadAction<Task>) => {
+            data[task.id] = task
+        },
         setTasksList: (state, { payload }: PayloadAction<Task[]>) => {
             const tasksList: OrderedTasks = {}
             payload.forEach(task => tasksList[task.id] = task)
@@ -39,7 +42,7 @@ export const useTask = (taskId: number) =>
   useSelector(
     createSelector(
       (state: RootState) => state.tasks.data,
-      (tasks) => {
+      (tasks: RootState["tasks"]["data"]) => {
         return tasks[taskId]
     }
     )
@@ -52,10 +55,22 @@ export const useTaskList = (listName: string) =>
           (
             tasks: RootState["tasks"]["data"]
           ) =>
-            Object.values(tasks).filter(task => task.taskList === listName)
+            Object.values(tasks).filter(task => task.tasksList === listName)
         )
     )
 
-export const { toggleTask, setTasksList } = taskModel.actions;
+export const useAllTasks = () => 
+    useSelector(
+        createSelector(
+          (state: RootState) => state.tasks.data,
+          (
+            tasks: RootState["tasks"]["data"]
+          ) =>
+            Object.values(tasks)
+        )
+    )
+
+
+export const { toggleTask, setTasksList, addTask } = taskModel.actions;
 
 export const reducer = taskModel.reducer;
