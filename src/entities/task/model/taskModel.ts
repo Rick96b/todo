@@ -37,8 +37,8 @@ export const taskModel = createSlice({
             payload.forEach(task => orderedData[task.id] = task)
             state.data = orderedData;
         },
-        setTasksLists: ({ tasksLists }, { payload }: PayloadAction<string[]>) => {
-            tasksLists = payload
+        setTasksLists: (state, { payload: tasksList }: PayloadAction<string[]>) => {
+            state.tasksLists = tasksList
         },
         addTasksList: ({ tasksLists }, { payload }: PayloadAction<string>) => {
             tasksLists.push(payload)
@@ -77,6 +77,18 @@ export const useAllTasks = () =>
             Object.values(tasks)
         )
     )
+
+export const useAllData = () => 
+    useSelector(
+        createSelector(
+          (state: RootState) => state.tasks,
+          (
+            tasks: RootState["tasks"]
+          ) =>
+            tasks
+        )
+    )
+
 
 
 export const { toggleTask, setData, addTask, addTasksList, setTasksLists} = taskModel.actions;

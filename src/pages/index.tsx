@@ -25,6 +25,7 @@ export const Routing = () => {
             completed: true
         }
         ]))
+        dispatch(taskModel.setTasksLists(['My Tasks']))
     }, [])
 
 

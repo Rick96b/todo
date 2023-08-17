@@ -7,12 +7,10 @@ import { AddTasksList } from 'features/add-tasks-list';
 import { TasksListCard } from 'widgets/tasks-list';
 import { taskModel } from 'entities/task';
 
-interface HomePageProps {
-  tasksData: taskModel.Task[]
-}
 
-const HomePage: React.FC<HomePageProps> = ({tasksData}) => {
-  const sortedTasksData = tasksData
+const HomePage: React.FC = () => {
+  const fullData = taskModel.useAllData();
+  console.log(fullData)
 
   return (
     <div className={styles.homePage}>
@@ -25,18 +23,9 @@ const HomePage: React.FC<HomePageProps> = ({tasksData}) => {
               <AddTasksList />
             </div>
             <div className={styles.tasksListsContainer}>
-              <TasksListCard tasksListName='Hehe' tasksData={[{
-                id: 1,
-                tasksList: 'My Tasks',
-                title: 'Fuck',
-                completed: false
-              },
-              {
-                  id: 2,
-                  tasksList: 'My Tasks',
-                  title: 'Nikita loh',
-                  completed: true
-              }]}/>
+              {fullData.tasksLists.map(tasksListName => 
+                <TasksListCard tasksListName={tasksListName} tasksData={Object.values(fullData.data).filter(task => task.tasksList === tasksListName)}/>
+              )}
             </div>
         </main>
     </div>
