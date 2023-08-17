@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 export type Task = {
     id: number;
-    tasksList: string,
+    tasksList: string;
     title: string;
     completed: boolean;
 }
@@ -16,10 +16,12 @@ export type OrderedTasks = Record<number, Task>;
 
 const initialState: {
     data: OrderedTasks
+    tasksLists: string[]
 } = {
-    data: {}
+    data: {},
+    tasksLists: []
 }
-  
+
 export const taskModel = createSlice({
     name: "tasks",
     initialState,
@@ -27,28 +29,34 @@ export const taskModel = createSlice({
         toggleTask: ({ data }, { payload: taskId }: PayloadAction<number>) => {
             data[taskId].completed = !data[taskId].completed;
         },
-        addTask: ({data}, {payload: task}: PayloadAction<Task>) => {
+        addTask: ({ data }, { payload: task }: PayloadAction<Task>) => {
             data[task.id] = task
         },
-        setTasksList: (state, { payload }: PayloadAction<Task[]>) => {
-            const tasksList: OrderedTasks = {}
-            payload.forEach(task => tasksList[task.id] = task)
-            state.data = tasksList;
+        setData: (state, { payload }: PayloadAction<Task[]>) => {
+            const orderedData: OrderedTasks = {}
+            payload.forEach(task => orderedData[task.id] = task)
+            state.data = orderedData;
         },
+        setTasksLists: ({ tasksLists }, { payload }: PayloadAction<string[]>) => {
+            tasksLists = payload
+        },
+        addTasksList: ({ tasksLists }, { payload }: PayloadAction<string>) => {
+            tasksLists.push(payload)
+        }
     },
 });
 
 export const useTask = (taskId: number) =>
   useSelector(
     createSelector(
-      (state: RootState) => state.tasks.data,
-      (tasks: RootState["tasks"]["data"]) => {
-        return tasks[taskId]
-    }
+        (state: RootState) => state.tasks.data,
+        (tasks: RootState["tasks"]["data"]) => {
+            return tasks[taskId]
+        }
     )
   );
 
-export const useTaskList = (listName: string) => 
+export const useTasksList = (listName: string) => 
     useSelector(
         createSelector(
           (state: RootState) => state.tasks.data,
@@ -71,6 +79,6 @@ export const useAllTasks = () =>
     )
 
 
-export const { toggleTask, setTasksList, addTask } = taskModel.actions;
+export const { toggleTask, setData, addTask, addTasksList, setTasksLists} = taskModel.actions;
 
 export const reducer = taskModel.reducer;

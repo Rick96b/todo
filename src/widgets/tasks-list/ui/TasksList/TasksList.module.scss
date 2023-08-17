@@ -1,0 +1,40 @@
+.task {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    padding: 20px;
+
+    font-family: var(--main-font);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5rem;
+
+    &:hover {
+        background: linear-gradient(to right, #EEE, #FFF);
+    }
+}
+
+.taskCompleted {
+    color: var(--color-red);
+}
+
+.taskContentCompleted {
+    position: relative;
+}
+
+.taskContentCompleted::before {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: -5px;
+
+    display: block;
+    width: calc(100% + 10px);
+    height: 2px;
+
+    background-color: var(--color-red);
+
+    transform: translateY(-50%);
+}

@@ -1,0 +1,52 @@
+.homePage {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    font-family: var(--main-font);
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 500;
+
+    &::before,
+    &::after {
+        content: "";
+
+        height: 1px;
+        width: 100%;
+        background-color: #dadada;
+    }
+
+    &::before {
+        margin-right: 20px;
+    }
+
+    &::after {
+        margin-left: 20px;
+    }
+
+    span {
+        margin-left: 10px;
+
+        color: #ccc;
+        font-weight: 300;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.addTaskListContainer {
+    margin: 75px 0;
+}

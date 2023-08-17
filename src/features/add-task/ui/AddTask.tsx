@@ -9,22 +9,22 @@ import { taskModel } from 'entities/task';
 import styles from './AddTask.module.scss';
 
 interface AddTaskProps {
-  tasksListName: string
-}
+  tasksListName: string;
+} 
 
 const AddTask: React.FC<AddTaskProps> = ({tasksListName}) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [taskText, setTaskText] = useState('');
   
   const dispatch = useDispatch();
   const allTasksData = taskModel.useAllTasks();
 
   const handleClose = () => {
-    setIsOpen(false);
+    setModalOpen(false);
   }
 
   const handleOpen = () => {
-    setIsOpen(true);
+    setModalOpen(true);
   }
 
   const handleSubmit = () => { 
@@ -52,24 +52,27 @@ const AddTask: React.FC<AddTaskProps> = ({tasksListName}) => {
 
   return (
     <>
-    <IconButton className={styles.button} aria-label='Add task' onClick={() => handleOpen()}>
-      <AddIcon className={styles.icon}/>
-    </IconButton>
-    <Modal 
-      openState={isOpen} 
-      handleClose={handleClose}
-      title='Add task'
-      actions={actions}
-    >
-      <TextField 
-        id="outlined-basic" 
-        label="Outlined" 
-        variant="outlined" 
-        autoFocus 
-        value={taskText} 
-        onChange={(event) => setTaskText(event.target.value)}
-      />
-    </Modal>
+      <IconButton className={styles.button} 
+        aria-label='Add task' 
+        onClick={() => handleOpen()}
+      >
+        <AddIcon className={styles.icon}/>
+      </IconButton>
+      <Modal 
+        openState={isModalOpen} 
+        handleClose={handleClose}
+        title='Add task'
+        actions={actions}
+      >
+        <TextField 
+          id="outlined-basic" 
+          label="Outlined" 
+          variant="outlined" 
+          autoFocus 
+          value={taskText} 
+          onChange={(event) => setTaskText(event.target.value)}
+        />
+      </Modal>
     </>
   )
 }

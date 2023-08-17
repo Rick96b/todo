@@ -6,12 +6,13 @@ import { useDispatch } from 'react-redux';
 import { taskModel } from 'entities/task';
 
 const TasksListPage = lazy(() => import('./tasks-list').then((module) => ({ default: module.TasksListPage })));
+const HomePage = lazy(() => import('./home').then((module) => ({ default: module.HomePage })));
 
 export const Routing = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(taskModel.setTasksList([{
+        dispatch(taskModel.setData([{
             id: 1,
             tasksList: 'My Tasks',
             title: 'Fuck',
@@ -27,10 +28,11 @@ export const Routing = () => {
     }, [])
 
 
-    const data = taskModel.useTaskList('My Tasks');
+    const data = taskModel.useTasksList('My Tasks');
     return (
         <Routes>
-            <Route path="/" element={<TasksListPage listName="My Tasks" data={data}/>}/>
+            <Route path="/list" element={<TasksListPage listName="My Tasks" data={data}/>}/>
+            <Route path="/" element={<HomePage />}/>
         </Routes>
     );
 };

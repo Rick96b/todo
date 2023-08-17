@@ -8,9 +8,10 @@ import { taskModel } from 'entities/task';
 
 interface ToggleTaskProps {
     taskId: number;
+      color?: 'white' | 'red';
 }
 
-const ToggleTask: React.FC<ToggleTaskProps> = ({taskId}) => {
+const ToggleTask: React.FC<ToggleTaskProps> = ({taskId, color='red'}) => {
     const dispatch = useDispatch();
     const task = taskModel.useTask(taskId);
 
@@ -23,9 +24,9 @@ const ToggleTask: React.FC<ToggleTaskProps> = ({taskId}) => {
             onChange={onToggle}
             checked={task.completed}
             sx={{
-                color: red[800],
+                color: color === 'red' ? '#e53935' : '#fff',
                 '&.Mui-checked': {
-                  color: red[600],
+                  color: color === 'red' ? '#e53935' : 'rgba(255, 255, 255, 0.3)',
                 },
             }}
         />
