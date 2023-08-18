@@ -9,8 +9,9 @@ import { taskModel } from 'entities/task';
 
 
 const HomePage: React.FC = () => {
-  const fullData = taskModel.useAllData();
-  console.log(fullData)
+  const fullData = taskModel.useAllData().data;
+  const tasksList = Object.values(fullData).map(task => Object.values(task))[0]
+  console.log(fullData, tasksList)
 
   return (
     <div className={styles.homePage}>
@@ -23,8 +24,8 @@ const HomePage: React.FC = () => {
               <AddTasksList />
             </div>
             <div className={styles.tasksListsContainer}>
-              {fullData.tasksLists.map(tasksListName => 
-                <TasksListCard tasksListName={tasksListName} tasksData={Object.values(fullData.data).filter(task => task.tasksList === tasksListName)}/>
+              {Object.keys(fullData).map(tasksListName => 
+                <TasksListCard tasksListName={tasksListName} tasksData={tasksList.filter(task => task.tasksList === tasksListName)}/>
               )}
             </div>
         </main>

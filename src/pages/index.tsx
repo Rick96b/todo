@@ -12,27 +12,30 @@ export const Routing = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(taskModel.setData([{
-            id: 1,
-            tasksList: 'My Tasks',
-            title: 'Fuck',
-            completed: false
-        },
-        {
-            id: 2,
-            tasksList: 'My Tasks',
-            title: 'Nikita loh',
-            completed: true
-        }
-        ]))
-        dispatch(taskModel.setTasksLists(['My Tasks']))
+        dispatch(taskModel.setData({
+            'My Tasks': 
+            {
+                1: {
+                    id: 1,
+                    tasksList: 'My Tasks',
+                    title: 'Fuck',
+                    completed: false
+                },
+                2: {
+                    id: 2,
+                    tasksList: 'My Tasks',
+                    title: 'Nikita loh',
+                    completed: true
+                }
+            }
+        }))
     }, [])
 
 
     const data = taskModel.useTasksList('My Tasks');
     return (
         <Routes>
-            <Route path="/list" element={<TasksListPage listName="My Tasks" data={data}/>}/>
+{/*             <Route path="/list" element={<TasksListPage listName="My Tasks" data={data}/>}/> */}
             <Route path="/" element={<HomePage />}/>
         </Routes>
     );

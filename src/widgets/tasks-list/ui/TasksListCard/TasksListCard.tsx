@@ -22,7 +22,7 @@ const TasksListCard: React.FC<TasksListCardProps> = ({tasksListName, tasksData})
         <ul className={styles.tasksList}>
           {tasksData.map(task => 
             <li className={classNames(styles.task, task.completed ? styles.taskCompleted : '')}>
-              <ToggleTask taskId={task.id} color='white'/>
+              <ToggleTask task={task} color='white'/>
               <div className={task.completed ? styles.taskContentCompleted : ''}>
                 <Task data={task}/>   
               </div>

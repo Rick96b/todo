@@ -7,17 +7,16 @@ import { taskModel } from 'entities/task';
 
 
 interface ToggleTaskProps {
-    taskId: number;
-      color?: 'white' | 'red';
+    task: taskModel.Task;
+    color?: 'white' | 'red';
 }
 
-const ToggleTask: React.FC<ToggleTaskProps> = ({taskId, color='red'}) => {
+const ToggleTask: React.FC<ToggleTaskProps> = ({task, color='red'}) => {
     const dispatch = useDispatch();
-    const task = taskModel.useTask(taskId);
 
     if (!task) return null;
 
-    const onToggle = () => dispatch(taskModel.toggleTask(taskId));
+    const onToggle = () => dispatch(taskModel.toggleTask(task));
 
     return (
         <Checkbox

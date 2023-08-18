@@ -16,7 +16,7 @@ const TaskList: React.FC<TaskListProps> = ({data}) => {
         {
           data.map(task => 
             <li className={classNames(styles.task, task.completed ? styles.taskCompleted : '')}>
-              <ToggleTask taskId={task.id} />
+              <ToggleTask task={task} />
               <div className={task.completed ? styles.taskContentCompleted : ''}>
                 <Task data={task}/>   
               </div>

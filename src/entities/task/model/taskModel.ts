@@ -13,59 +13,52 @@ export type Task = {
 }
 
 export type OrderedTasks = Record<number, Task>;
+export type ListedTasks = Record<string, OrderedTasks>;
 
 const initialState: {
-    data: OrderedTasks
-    tasksLists: string[]
+    data: ListedTasks
 } = {
     data: {},
-    tasksLists: []
 }
 
 export const taskModel = createSlice({
     name: "tasks",
     initialState,
     reducers: {
-        toggleTask: ({ data }, { payload: taskId }: PayloadAction<number>) => {
-            data[taskId].completed = !data[taskId].completed;
+        toggleTask: ({ data }, { payload: task }: PayloadAction<Task>) => {
+            data[task.tasksList][task.id].completed = !data[task.tasksList][task.id].completed
         },
         addTask: ({ data }, { payload: task }: PayloadAction<Task>) => {
-            data[task.id] = task
+            data[task.tasksList][task.id] = task
         },
-        setData: (state, { payload }: PayloadAction<Task[]>) => {
-            const orderedData: OrderedTasks = {}
-            payload.forEach(task => orderedData[task.id] = task)
-            state.data = orderedData;
+        setData: (state, { payload }: PayloadAction<ListedTasks>) => {
+            state.data = payload;
         },
-        setTasksLists: (state, { payload: tasksList }: PayloadAction<string[]>) => {
-            state.tasksLists = tasksList
-        },
-        addTasksList: ({ tasksLists }, { payload }: PayloadAction<string>) => {
-            tasksLists.push(payload)
+        addTasksList: (state, { payload }: PayloadAction<string>) => {
+            state.data[payload] = {};
         }
     },
 });
 
-export const useTask = (taskId: number) =>
+export const useTask = (task: Task) =>
   useSelector(
     createSelector(
         (state: RootState) => state.tasks.data,
         (tasks: RootState["tasks"]["data"]) => {
-            return tasks[taskId]
+            return tasks[task.tasksList][task.id]
         }
     )
   );
 
-export const useTasksList = (listName: string) => 
-    useSelector(
-        createSelector(
-          (state: RootState) => state.tasks.data,
-          (
-            tasks: RootState["tasks"]["data"]
-          ) =>
-            Object.values(tasks).filter(task => task.tasksList === listName)
-        )
+export const useTasksList = (tasksList: string) =>
+  useSelector(
+    createSelector(
+        (state: RootState) => state.tasks.data,
+        (tasks: RootState["tasks"]["data"]) => {
+            return tasks[tasksList] ? Object.values(tasks[tasksList]) : []
+        }
     )
+  );
 
 export const useAllTasks = () => 
     useSelector(
@@ -91,6 +84,6 @@ export const useAllData = () =>
 
 
 
-export const { toggleTask, setData, addTask, addTasksList, setTasksLists} = taskModel.actions;
+export const { toggleTask, setData, addTask, addTasksList} = taskModel.actions;
 
 export const reducer = taskModel.reducer;
