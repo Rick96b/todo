@@ -27,6 +27,8 @@ const AddTask: React.FC<AddTaskProps> = ({tasksListName}) => {
     setModalOpen(true);
   }
 
+  console.log(allTasksData)
+
   const handleSubmit = () => { 
     const newTask: taskModel.Task = {
       id: allTasksData.length + 1,

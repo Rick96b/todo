@@ -32,10 +32,9 @@ export const Routing = () => {
     }, [])
 
 
-    const data = taskModel.useTasksList('My Tasks');
     return (
         <Routes>
-{/*             <Route path="/list" element={<TasksListPage listName="My Tasks" data={data}/>}/> */}
+            <Route path="/list/:tasksList" element={<TasksListPage />}/> 
             <Route path="/" element={<HomePage />}/>
         </Routes>
     );

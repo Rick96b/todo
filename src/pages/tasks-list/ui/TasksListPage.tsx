@@ -7,22 +7,24 @@ import { TasksList } from 'widgets/tasks-list';
 import { taskModel } from 'entities/task';
 import { AddTask } from 'features/add-task';
 import styles from './TasksListPage.module.scss';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
-interface TasksListPageProps {
-  listName: string,
-  data: taskModel.Task[]
-}
 
-const TasksListPage: React.FC<TasksListPageProps> = ({listName, data}) => {
+const TasksListPage: React.FC = () => {
+  const {tasksList} = useParams() as { tasksList: string };
+  const data = taskModel.useTasksList(tasksList);
   const completedTasks = data.filter(task => task.completed)
 
   return (
     <Container maxWidth="md" className={styles.tasksPage}>
       <header className={styles.header}>
         <Brightness5OutlinedIcon />
-        <IconButton>
-          <CloseOutlinedIcon />
-        </IconButton>
+        <Link to='/'>
+          <IconButton>
+            <CloseOutlinedIcon />
+          </IconButton>
+        </Link>
       </header>
       <main>
         <div className={styles.info}>
@@ -50,13 +52,13 @@ const TasksListPage: React.FC<TasksListPageProps> = ({listName, data}) => {
             />
           </Box>
           <p className={styles.infoContainer}>
-            <b className={styles.listName}>{listName}</b>
+            <b className={styles.listName}>{tasksList}</b>
             <span className={styles.tasksCount}>{`${completedTasks.length} of ${data.length} tasks`}</span>
           </p>
         </div>
         <TasksList data={data} />
         <div className={styles.addTaskButton}>
-          <AddTask tasksListName={listName}/>
+          <AddTask tasksListName={tasksList}/>
         </div>
       </main>
     </Container>

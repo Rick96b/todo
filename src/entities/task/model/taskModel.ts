@@ -35,7 +35,7 @@ export const taskModel = createSlice({
             state.data = payload;
         },
         addTasksList: (state, { payload }: PayloadAction<string>) => {
-            state.data[payload] = {};
+            state.data[`${payload}`] = {};
         }
     },
 });
@@ -67,7 +67,7 @@ export const useAllTasks = () =>
           (
             tasks: RootState["tasks"]["data"]
           ) =>
-            Object.values(tasks)
+            Object.values(tasks).map(taskList => Object.values(taskList)).flat(1)
         )
     )
 

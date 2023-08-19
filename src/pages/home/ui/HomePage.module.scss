@@ -50,3 +50,33 @@
 .addTaskListContainer {
     margin: 75px 0;
 }
+
+.tasksListsContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;
+
+    overflow-x: auto;
+
+
+    &::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #ddd;
+    }
+    
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: blue;
+    }
+    
+    &::-webkit-scrollbar-track-piece:end {
+        margin-right: 50px; 
+    }
+    
+    &::-webkit-scrollbar-track-piece:start {
+        margin-left: 50px;
+    }
+}

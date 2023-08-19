@@ -6,12 +6,13 @@ import styles from './HomePage.module.scss'
 import { AddTasksList } from 'features/add-tasks-list';
 import { TasksListCard } from 'widgets/tasks-list';
 import { taskModel } from 'entities/task';
+import { Link } from 'react-router-dom';
 
 
 const HomePage: React.FC = () => {
   const fullData = taskModel.useAllData().data;
-  const tasksList = Object.values(fullData).map(task => Object.values(task))[0]
-  console.log(fullData, tasksList)
+  const tasksList = Object.values(fullData).map(taskList => Object.values(taskList)).flat(1)
+  console.log(tasksList)
 
   return (
     <div className={styles.homePage}>
@@ -23,11 +24,15 @@ const HomePage: React.FC = () => {
             <div className={styles.addTaskListContainer}>
               <AddTasksList />
             </div>
-            <div className={styles.tasksListsContainer}>
+            <ul className={styles.tasksListsContainer}>
               {Object.keys(fullData).map(tasksListName => 
-                <TasksListCard tasksListName={tasksListName} tasksData={tasksList.filter(task => task.tasksList === tasksListName)}/>
+                <li className={styles.tasksListsItem}>
+                  <Link to={'/list/' + tasksListName}>
+                    <TasksListCard tasksListName={tasksListName} tasksData={tasksList.filter(task => task.tasksList === tasksListName)}/>
+                  </Link>
+                </li>
               )}
-            </div>
+            </ul>
         </main>
     </div>
   )
