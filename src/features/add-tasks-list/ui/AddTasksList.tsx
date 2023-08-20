@@ -38,6 +38,9 @@ const AddTasksList: React.FC<AddTasksListProps> = () => {
           type="submit" 
           form="taskCreateForm"  
           onClick={() => handleSubmit()}
+          sx={{
+            color: 'var(--color-red)',
+          }}
         >
           Save
         </Button>,
@@ -58,8 +61,8 @@ const AddTasksList: React.FC<AddTasksListProps> = () => {
             actions={actions}
         >
             <TextField 
-                id="outlined-basic" 
-                label="Outlined" 
+                id="addList" 
+                label="Add list" 
                 variant="outlined" 
                 autoFocus 
                 value={tasksListName} 

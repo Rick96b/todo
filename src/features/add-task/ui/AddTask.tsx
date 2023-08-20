@@ -15,6 +15,7 @@ interface AddTaskProps {
 const AddTask: React.FC<AddTaskProps> = ({tasksListName}) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [taskText, setTaskText] = useState('');
+  const [taskError, setTaskError] = useState('');
   
   const dispatch = useDispatch();
   const allTasksData = taskModel.useAllTasks();
@@ -30,6 +31,11 @@ const AddTask: React.FC<AddTaskProps> = ({tasksListName}) => {
   console.log(allTasksData)
 
   const handleSubmit = () => { 
+    if(!taskText) {
+      setTaskError('Empty field!')
+      return;
+    }
+
     const newTask: taskModel.Task = {
       id: allTasksData.length + 1,
       tasksList: tasksListName,
@@ -47,6 +53,9 @@ const AddTask: React.FC<AddTaskProps> = ({tasksListName}) => {
       type="submit" 
       form="taskCreateForm"  
       onClick={() => handleSubmit()}
+      sx={{
+        color: 'var(--color-red)'
+      }}
     >
       Save
     </Button>,
@@ -67,10 +76,12 @@ const AddTask: React.FC<AddTaskProps> = ({tasksListName}) => {
         actions={actions}
       >
         <TextField 
-          id="outlined-basic" 
-          label="Outlined" 
+          id="addTask" 
+          label="Add task" 
           variant="outlined" 
-          autoFocus 
+          error={!!taskError}
+          helperText={taskError}
+          autoFocus={true}
           value={taskText} 
           onChange={(event) => setTaskText(event.target.value)}
         />

@@ -31,6 +31,9 @@ export const taskModel = createSlice({
         addTask: ({ data }, { payload: task }: PayloadAction<Task>) => {
             data[task.tasksList][task.id] = task
         },
+        deleteTask: ({ data }, { payload: task }: PayloadAction<Task>) => {
+            delete data[task.tasksList][task.id]
+        },
         setData: (state, { payload }: PayloadAction<ListedTasks>) => {
             state.data = payload;
         },
@@ -84,6 +87,6 @@ export const useAllData = () =>
 
 
 
-export const { toggleTask, setData, addTask, addTasksList} = taskModel.actions;
+export const { toggleTask, setData, addTask, deleteTask, addTasksList} = taskModel.actions;
 
 export const reducer = taskModel.reducer;
