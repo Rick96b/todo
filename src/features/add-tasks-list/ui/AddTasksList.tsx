@@ -16,7 +16,6 @@ const AddTasksList: React.FC<AddTasksListProps> = () => {
     const [tasksListName, setTasksListName] = useState('');
 
     const dispatch = useDispatch();
-    const allTasksData = taskModel.useAllTasks();
 
     const handleClose = () => {
         setModalOpen(false);

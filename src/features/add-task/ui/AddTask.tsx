@@ -28,8 +28,6 @@ const AddTask: React.FC<AddTaskProps> = ({tasksListName}) => {
     setModalOpen(true);
   }
 
-  console.log(allTasksData)
-
   const handleSubmit = () => { 
     if(!taskText) {
       setTaskError('Empty field!')

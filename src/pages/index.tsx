@@ -12,23 +12,7 @@ export const Routing = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(taskModel.setData({
-            'My Tasks': 
-            {
-                1: {
-                    id: 1,
-                    tasksList: 'My Tasks',
-                    title: 'Fuck',
-                    completed: false
-                },
-                2: {
-                    id: 2,
-                    tasksList: 'My Tasks',
-                    title: 'Nikita loh',
-                    completed: true
-                }
-            }
-        }))
+        dispatch(taskModel.setData())
     }, [])
 
 

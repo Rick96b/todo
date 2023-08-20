@@ -27,15 +27,28 @@ export const taskModel = createSlice({
     reducers: {
         toggleTask: ({ data }, { payload: task }: PayloadAction<Task>) => {
             data[task.tasksList][task.id].completed = !data[task.tasksList][task.id].completed
+            localStorage.setItem(task.tasksList, JSON.stringify(Object.values(data[task.tasksList])))
         },
         addTask: ({ data }, { payload: task }: PayloadAction<Task>) => {
             data[task.tasksList][task.id] = task
+            localStorage.setItem(task.tasksList, JSON.stringify(Object.values(data[task.tasksList])))
         },
         deleteTask: ({ data }, { payload: task }: PayloadAction<Task>) => {
             delete data[task.tasksList][task.id]
+            localStorage.setItem(task.tasksList, JSON.stringify(Object.values(data[task.tasksList])))
         },
-        setData: (state, { payload }: PayloadAction<ListedTasks>) => {
-            state.data = payload;
+        setData: (state, {  }: PayloadAction) => {
+            const orderedData: ListedTasks = {}
+            for(let i = 0; i < localStorage.length; i++) {
+                const tasksList = localStorage.key(i) || '';
+                orderedData[tasksList] = {};
+                const tasks = JSON.parse(localStorage.getItem(tasksList) || '')
+                tasks.forEach((task: Task) => {
+                    console.log(tasksList, task)
+                    orderedData[tasksList][task.id] = task
+                });
+            }
+            state.data = orderedData;
         },
         addTasksList: (state, { payload }: PayloadAction<string>) => {
             state.data[`${payload}`] = {};
