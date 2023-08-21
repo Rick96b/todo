@@ -19,7 +19,7 @@ const DeleteTask: React.FC<DeleteTaskProps> = ({task}) => {
 
     return (
         <IconButton className={styles.button} 
-            aria-label='Add task' 
+            aria-label='Delete task' 
             onClick={() => handleDelete()}
             sx={{
                 color: 'var(--color-red)'

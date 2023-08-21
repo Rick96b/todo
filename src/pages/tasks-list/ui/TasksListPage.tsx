@@ -10,6 +10,7 @@ import styles from './TasksListPage.module.scss';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import BaseContainer from 'shared/ui/Container';
+import { DeleteTasksList } from 'features/delete-tasks-list';
 
 
 const TasksListPage: React.FC = () => {
@@ -59,6 +60,7 @@ const TasksListPage: React.FC = () => {
               <b className={styles.listName}>{tasksList}</b>
               <span className={styles.tasksCount}>{`${completedTasks.length} of ${data.length} tasks`}</span>
             </p>
+            <DeleteTasksList tasksList={tasksList}/>
           </BaseContainer>
         </div>
         <BaseContainer className={styles.tasksListCenterer}>
