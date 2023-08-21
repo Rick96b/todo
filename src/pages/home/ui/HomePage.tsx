@@ -13,7 +13,6 @@ import BaseContainer from 'shared/ui/Container';
 const HomePage: React.FC = () => {
   const fullData = taskModel.useAllData().data;
   const tasksList = Object.values(fullData).map(taskList => Object.values(taskList)).flat(1)
-  console.log(localStorage)
 
   return (
     <div className={styles.homePage}>

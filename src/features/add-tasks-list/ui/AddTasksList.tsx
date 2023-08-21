@@ -14,8 +14,10 @@ interface AddTasksListProps {
 const AddTasksList: React.FC<AddTasksListProps> = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [tasksListName, setTasksListName] = useState('');
+    const [taskError, setTaskError] = useState('');
 
     const dispatch = useDispatch();
+    const tasksListsNames = Object.keys(taskModel.useAllData().data)
 
     const handleClose = () => {
         setModalOpen(false);
@@ -26,6 +28,14 @@ const AddTasksList: React.FC<AddTasksListProps> = () => {
     }
 
     const handleSubmit = () => { 
+        if(!tasksListName) {
+            setTaskError('Empty field!')
+            return;
+        } else if (tasksListsNames.includes(tasksListName)) {
+            setTaskError('This list already exist!')
+            return;
+        }
+
         dispatch(taskModel.addTasksList(tasksListName))
         setTasksListName('');
         handleClose()
@@ -65,6 +75,8 @@ const AddTasksList: React.FC<AddTasksListProps> = () => {
                 variant="outlined" 
                 autoFocus 
                 value={tasksListName} 
+                error={!!taskError}
+                helperText={taskError}
                 onChange={(event) => setTasksListName(event.target.value)}
             />
         </Modal>
