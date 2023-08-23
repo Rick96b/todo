@@ -40,21 +40,25 @@ export const taskModel = createSlice({
         setData: (state, {  }: PayloadAction) => {
             const orderedData: ListedTasks = {}
             for(let i = 0; i < localStorage.length; i++) {
-                const tasksList = localStorage.key(i) || '';
-                orderedData[tasksList] = {};
-                const tasks = JSON.parse(localStorage.getItem(tasksList) || '')
-                tasks.forEach((task: Task) => {
-                    console.log(tasksList, task)
-                    orderedData[tasksList][task.id] = task
-                });
+                const tasksList = localStorage.key(i);
+                if(tasksList) {
+                    orderedData[tasksList] = {};
+                    const tasks: Task[] = JSON.parse(localStorage.getItem(tasksList) || '')
+                    tasks.forEach((task: Task) => {
+                        console.log(tasksList, task)
+                        orderedData[tasksList][task.id] = task
+                    });    
+                }   
             }
             state.data = orderedData;
         },
         addTasksList: (state, { payload }: PayloadAction<string>) => {
             state.data[payload] = {};
+            localStorage.setItem(payload, '[]')
         },
         deleteTasksList: (state, { payload }: PayloadAction<string>) => {
             delete state.data[payload];
+            localStorage.removeItem(payload)
         },
     },
 });

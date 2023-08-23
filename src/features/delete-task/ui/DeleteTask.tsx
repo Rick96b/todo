@@ -2,7 +2,6 @@ import React from 'react'
 import {IconButton} from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
-import styles from './DeleteTask.module.scss';
 import { taskModel } from 'entities/task';
 import { useDispatch } from 'react-redux';
 
@@ -18,14 +17,14 @@ const DeleteTask: React.FC<DeleteTaskProps> = ({task}) => {
     }
 
     return (
-        <IconButton className={styles.button} 
+        <IconButton 
             aria-label='Delete task' 
             onClick={() => handleDelete()}
             sx={{
                 color: 'var(--color-red)'
             }}
             >
-            <CloseOutlinedIcon className={styles.icon}/>
+            <CloseOutlinedIcon/>
         </IconButton>
     )
 }
